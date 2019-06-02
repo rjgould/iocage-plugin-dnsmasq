@@ -1,22 +1,32 @@
 #!/bin/sh +x
 
+## Conf file locations
+HOSTS=/etc/hosts
 RESOLVE_CONF=/etc/resolv.conf
+DNSMASQ_CONF=/usr/local/etc/dnsmasq.conf
 
 set_nameservers()
 {
-	# Remove name server entries
+	# Remove existing name server entries
 	grep -v '^nameserver' ${RESOLVE_CONF} > /tmp/resolve.conf
 	
-	for nameserver in `echo $1 | tr ',' '\n'` ; do
-		echo "nameserver ${nameserver}" >> /tmp/resolve.conf
+	while [ $# -gt 0 ]; do
+		echo "Adding $1..."
+		echo "nameserver $1" >> /tmp/resolve.conf
+		shift
 	done
 
 	mv /tmp/resolve.conf ${RESOLVE_CONF}
 }
 
 case $1 in
-	nameservers) set_nameservers $2 ;;
+	nameservers) 
+		shift
+		set_nameservers $@ 
+	;;
 
-	*) echo "Unknown option" ;;
+	*) 
+		echo "Unknown option" 
+	;;
 esac
 
