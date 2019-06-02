@@ -1,0 +1,6 @@
+{
+	"servicerestart": "service dnsmasq restart",
+	"serviceget": "/usr/local/bin/dnsmasqget",
+	"serviceset": "/usr/local/bin/dnsmasqset",
+	"options": ""
+}
