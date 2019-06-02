@@ -1,6 +1,6 @@
 #!/bin/sh +x
 
-RESOLVE_CONF=resolv.conf
+RESOLVE_CONF=/etc/resolv.conf
 
 set_nameservers()
 {
