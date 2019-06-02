@@ -2,5 +2,11 @@
 	"servicerestart": "service dnsmasq restart",
 	"serviceget": "/usr/local/bin/dnsmasqget",
 	"serviceset": "/usr/local/bin/dnsmasqset",
-	"options": ""
+	"options": {
+		"nameservers": {
+			"type": "string",
+			"name": "Nameservers",
+			"description": "Comma delimited list of upstream nameservers"
+		}
+	}
 }
