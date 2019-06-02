@@ -1,0 +1,22 @@
+#!/bin/sh +x
+
+RESOLVE_CONF=resolv.conf
+
+set_nameservers()
+{
+	# Remove name server entries
+	grep -v '^nameserver' ${RESOLVE_CONF} > /tmp/resolve.conf
+	
+	for nameserver in `echo $1 | tr ',' '\n'` ; do
+		echo "nameserver ${nameserver}" >> /tmp/resolve.conf
+	done
+
+	mv /tmp/resolve.conf ${RESOLVE_CONF}
+}
+
+case $1 in
+	nameservers) set_nameservers $2 ;;
+
+	*) echo "Unknown option" ;;
+esac
+

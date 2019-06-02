@@ -1,0 +1,16 @@
+#!/bin/sh
+
+RESOLVE_CONF=resolv.conf
+
+get_nameservers()
+{
+	# Get name servers from resolve.conf
+	grep -o '^nameserver [0-9]*\.[0-9]*\.[0-9]*\.[0-9]*' ${RESOLVE_CONF} | cut -f2 -d' ' | tr '\n' ', '
+}
+
+case $1 in
+	nameservers) get_nameservers ;;
+
+	*) echo "Unknown option" ;;
+esac
+
