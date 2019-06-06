@@ -65,4 +65,4 @@ Add and remove host entries.
     
 **delhost**::
 
-    > iocage set -P addhost=192.168.1.14,my_host-c dnsmasq
+    > iocage set -P delhost=my_host-c dnsmasq
