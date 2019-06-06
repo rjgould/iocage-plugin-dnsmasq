@@ -1,5 +1,12 @@
 #!/bin/sh -x
 
+# Copy resolve.conf to provide initial config
+cp /etc/resolve.conf /usr/local/etc/resolve.conf
+
+# Apply settings to dnsmasq.conf
+sed -i s/#bind-interfaces/bind-interfaces/g
+sed -i s/#resolve-file=/resolve-file=\/usr\/local\/etc\/resolve.conf/g
+
 # Enable the service
 sysrc -f /etc/rc.conf dnsmasq_enable="YES"
 
