@@ -1,22 +1,66 @@
-#!/bin/sh +x
+#!/usr/bin/env python3.6
+import sys
+import os.path
 
-RESOLVE_CONF=/etc/resolv.conf
+sys.path.insert(0, os.path.dirname(__file__))
 
-set_nameservers()
-{
-	# Remove name server entries
-	grep -v '^nameserver' ${RESOLVE_CONF} > /tmp/resolve.conf
-	
-	for nameserver in `echo $1 | tr ',' '\n'` ; do
-		echo "nameserver ${nameserver}" >> /tmp/resolve.conf
-	done
+from dnsmasq import *
 
-	mv /tmp/resolve.conf ${RESOLVE_CONF}
-}
 
-case $1 in
-	nameservers) set_nameservers $2 ;;
+def set_name_servers(*name_servers):
+    """
+    Update name servers
+    """
+    # Read in resolve.conf and remove name server entries
+    resolve = [
+        line for line in RESOLVE_CONF.open()
+        if not line.startswith("nameserver")
+    ]
 
-	*) echo "Unknown option" ;;
-esac
+    # Append name servers
+    for name_server in name_servers:
+        print(f"Adding {name_server}...")
+        resolve.append(f"nameserver {name_server}")
 
+    RESOLVE_CONF.write_text('\n'.join(resolve))
+
+
+def add_host(ip, host_name):
+    """
+    Add a host entry
+    """
+    Hosts().read().add(ip, host_name).write()
+
+
+def del_host(host_name):
+    """
+    Remove a host entry
+    """
+    Hosts().read().remove(host_name).write()
+
+
+def main(args):
+    if not len(args) > 1:
+        print(f"Usage: {args[0]} COMMAND [ARGS...]")
+        exit(1)
+
+    command = {
+        "nameservers": set_name_servers,
+        "addhost": add_host,
+        "delhost": del_host,
+    }.get(args[1])
+    if command is None:
+        print("Unknown command")
+        print(args[2:])
+        exit(1)
+
+    try:
+        command(*args[2:])
+    except Exception as ex:
+        raise
+        print(ex)
+        exit(2)
+
+
+if __name__ == "__main__":
+    main(sys.argv)

@@ -1,16 +1,46 @@
-#!/bin/sh
+#!/usr/bin/env python3.6
+import sys
+import os.path
 
-RESOLVE_CONF=/etc/resolv.conf
+sys.path.insert(0, os.path.dirname(__file__))
 
-get_nameservers()
-{
-	# Get name servers from resolve.conf
-	grep -o '^nameserver [0-9]*\.[0-9]*\.[0-9]*\.[0-9]*' ${RESOLVE_CONF} | cut -f2 -d' ' | tr '\n' ', '
-}
+from dnsmasq import *
 
-case $1 in
-	nameservers) get_nameservers ;;
 
-	*) echo "Unknown option" ;;
-esac
+def get_name_servers():
+    """
+    Get all name-servers into a comma separated list
+    """
+    print(",".join(
+        line[11:].strip() for line in RESOLVE_CONF.open()
+        if line.startswith("nameserver")
+    ))
 
+
+def list_hosts():
+    """
+    Get host list
+    """
+    print(Hosts().read().filter())
+
+
+def main(args):
+    if not len(args) > 1:
+        print(f"Usage: {args[0]} COMMAND [ARGS...]")
+        exit(1)
+
+    command = {
+        "nameservers": get_name_servers,
+        "hosts": list_hosts,
+    }.get(args[1])
+
+    if command is None:
+        print("Unknown command")
+        print(args[2:])
+        exit(1)
+    
+    command(*args[2:])
+    
+
+if __name__ == "__main__":
+    main(sys.argv)

@@ -7,6 +7,29 @@
 			"type": "string",
 			"name": "Nameservers",
 			"description": "Comma delimited list of upstream nameservers"
+		},
+		"addhost": {
+			"type": "add",
+			"name": "Add host",
+			"description": "Add a new host mapping",
+			"requiredargs": {
+				"ip_address": {
+					"type": "string",
+					"description": "IP address (IPv4 or IPv6)"
+				},
+				"hostnames": {
+					"type": "string",
+					"description": "Comma delimited list of hostnames to associate with IP address"
+				}
+			}
+		},
+		"delhost": {
+			"type": "delete",
+			"name": "Delete host",
+			"description": "Remove a host entry",
+			"requiredargs": {
+
+			}
 		}
 	}
 }
