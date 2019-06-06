@@ -36,7 +36,7 @@ IOCage Properties
 nameservers
 -----------
 
-Manage upstream nameservers.
+Manage upstream nameservers. In these examples enable Google DNS servers
 
 **get**::
 
