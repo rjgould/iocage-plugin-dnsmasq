@@ -11,32 +11,28 @@ def set_name_servers(*name_servers):
     """
     Update name servers
     """
-    # Read in resolve.conf and remove name server entries
-    resolve = [
-        line for line in RESOLVE_CONF.open()
-        if not line.startswith("nameserver")
-    ]
-
-    # Append name servers
-    for name_server in name_servers:
-        print(f"Adding {name_server}...")
-        resolve.append(f"nameserver {name_server}")
-
-    RESOLVE_CONF.write_text('\n'.join(resolve))
+    servers = NameServers().read()
+    servers.clear()
+    servers.extend(name_servers)
+    servers.write()
 
 
 def add_host(ip, host_name):
     """
     Add a host entry
     """
-    Hosts().read().add(ip, host_name).write()
+    hosts = Hosts().read()
+    hosts.add(ip, host_name)
+    hosts.write()
 
 
 def del_host(host_name):
     """
     Remove a host entry
     """
-    Hosts().read().remove(host_name).write()
+    hosts = Hosts().read()
+    hosts.remove(host_name)
+    hosts.write()
 
 
 def main(args):

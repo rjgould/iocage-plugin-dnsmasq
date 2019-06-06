@@ -23,6 +23,42 @@ SPECIAL_IPS = (
 )
 
 
+class NameServers(list):
+    """
+    Read/modify name servers
+    """
+    def __str__(self):
+        return ", ".join(self)
+
+    def read(self, file=None):
+        file = file or RESOLVE_CONF
+
+        with file.open() as f:
+            self.clear()
+            for line in f:
+                line = line.strip()
+                if line.startswith("nameserver"):
+                    self.append(line[11:].strip())
+
+        return self
+
+    def write(self, file=None):
+        file = file or RESOLVE_CONF
+
+        # Read in current file
+        with file.open() as f:
+            existing = [
+                line for line in f
+                if not line.strip().startswith("nameserver")
+            ]
+
+        for server in self:
+            existing.append(f"nameserver {server}\n")
+
+        with file.open('w') as f:
+            f.writelines(existing)
+
+
 class Hosts:
     """
     Read/modify the hosts file

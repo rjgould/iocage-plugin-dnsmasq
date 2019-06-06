@@ -11,10 +11,7 @@ def get_name_servers():
     """
     Get all name-servers into a comma separated list
     """
-    print(",".join(
-        line[11:].strip() for line in RESOLVE_CONF.open()
-        if line.startswith("nameserver")
-    ))
+    print(NameServers().read())
 
 
 def list_hosts():
