@@ -7,7 +7,7 @@ from collections import defaultdict
 
 # Conf file locations
 HOSTS = Path("/etc/hosts")
-RESOLVE_CONF = Path("/etc/resolv.conf")
+RESOLV_CONF = Path("/etc/resolv.conf")
 DNSMASQ_CONF = Path("/usr/local/etc/dnsmasq.conf")
 
 
@@ -31,7 +31,7 @@ class NameServers(list):
         return ", ".join(self)
 
     def read(self, file=None):
-        file = file or RESOLVE_CONF
+        file = file or RESOLV_CONF
 
         with file.open() as f:
             self.clear()
@@ -43,7 +43,7 @@ class NameServers(list):
         return self
 
     def write(self, file=None):
-        file = file or RESOLVE_CONF
+        file = file or RESOLV_CONF
 
         # Read in current file
         with file.open() as f:
