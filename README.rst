@@ -47,6 +47,8 @@ Manage upstream nameservers.
 hostname entries
 ----------------
 
+Add and remove host entries. 
+
 **list**::
 
     > iocage get -P hosts JAIL_NAME
