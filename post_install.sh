@@ -6,8 +6,8 @@ DNSMASQ_CONF=/usr/local/etc/dnsmasq.conf
 cp /etc/resolv.conf /usr/local/etc/resolv.conf
 
 # Apply settings to dnsmasq.conf
-sed -i s/#bind-interfaces/bind-interfaces/g ${DNSMASQ_CONF}
-sed -i s/#resolv-file=/resolv-file=\/usr\/local\/etc\/resolv.conf/g ${DNSMASQ_CONF}
+sed -i -e 's/#bind-interfaces/bind-interfaces/g' ${DNSMASQ_CONF}
+sed -i -e 's/#resolv-file=/resolv-file=\/usr\/local\/etc\/resolv.conf/g' ${DNSMASQ_CONF}
 
 # Enable the service
 sysrc -f /etc/rc.conf dnsmasq_enable="YES"
