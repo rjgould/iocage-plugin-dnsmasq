@@ -54,14 +54,14 @@ Add and remove host entries.
    
 **addhost**::
     
-    > iocage set -P addhost=192.168.1.14,my_host-c dnsmasq
+    > iocage set -P addhost=192.168.1.14,my_host_c dnsmasq
     
 **delhost**::
 
-    > iocage set -P delhost=my_host-c dnsmasq
+    > iocage set -P delhost=my_host_c dnsmasq
 
 **list**::
 
     > iocage get -P hosts dnsmasq
-    192.168.1.10  my_host-a my_host-a_alt
-    192.168.1.12  my_host-b
+    192.168.1.10  my_host_a my_host_a_alt
+    192.168.1.12  my_host_b
