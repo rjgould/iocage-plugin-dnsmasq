@@ -2,6 +2,9 @@
 
 DNSMASQ_CONF=/usr/local/etc/dnsmasq/dnsmasq.conf
 
+# Make directory
+mkdir -p /usr/local/etc/dnsmasq
+
 # Copy resolve.conf to provide initial config
 cp /etc/resolv.conf /usr/local/etc/dnsmasq/resolv.conf
 
