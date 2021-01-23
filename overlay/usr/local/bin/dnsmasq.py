@@ -7,8 +7,8 @@ from collections import defaultdict
 
 # Conf file locations
 HOSTS = Path("/etc/hosts")
-RESOLV_CONF = Path("/usr/local/etc/resolv.conf")
-DNSMASQ_CONF = Path("/usr/local/etc/dnsmasq.conf")
+RESOLV_CONF = Path("/usr/local/etc/dnsmasq/resolv.conf")
+DNSMASQ_CONF = Path("/usr/local/etc/dnsmasq/dnsmasq.conf")
 
 
 # IP addresses to filter out

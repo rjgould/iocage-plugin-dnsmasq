@@ -19,13 +19,14 @@ This plugin applies some configuration defaults (see `post_install.sh` in this r
 
     # From host server
     > iocage console dnsmasq
-    # Use vi to edit dnsmasq.conf
-    > vi /usr/local/etc/dnsmasq.conf
+    # Use vi or nano to edit dnsmasq.conf
+    > vi /usr/local/etc/dnsmasq/dnsmasq.conf
+    > nano /usr/local/etc/dnsmasq/dnsmasq.conf
     # Restart to apply
     > service dnsmasq restart
     # Use CTRL+D to exit back to host
 
-All configuration files are in the default location `/usr/local/etc`.
+All configuration files are in the default location `/usr/local/etc/dnsmasq`.
 
 .. note:: The `bind-interfaces` option is required for UDP DNS responses to work correctly.
 
